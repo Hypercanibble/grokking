@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grokking: The Mystery of Algorithmic Generalization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --surface: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: #0f172a;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        .image-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .caption {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            padding: 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        blockquote {
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            background: #eff6ff;
+            margin: 2rem 0;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="meta">Experimental Analysis Report</div>
+            <h1>Grokking: The Emergence of Generalization</h1>
+        </header>
+
+        <p class="lead">
+            Grokking is a phenomenon in deep learning where a model, after long periods of overfitting, suddenly
+            transitions to perfect generalization.
+        </p>
+
+        <section>
+            <h2>The Experiment: Modular Addition</h2>
+            <p>
+                We trained a 1-layer Transformer on the task of <code>(a + b) mod 97</code>. Using only 30% of the
+                possible data for training, we observe how the model moves from simple memorization to discovering the
+                underlying mathematical rule.
+            </p>
+
+            <div class="image-container">
+                <img src="real_loss_curve.png" alt="Training and Test Loss">
+                <div class="caption">Figure 1: Training loss (blue) drops to zero almost instantly, while test loss
+                    (orange) remains high until a sudden drop around epoch 7,000.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Three Learning Phases</h2>
+            <p>By tracking the L2 squared norm of the weights alongside the loss, we can categorize the training process
+                into three distinct regimes:</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>1. Memorization</h3>
+                    <p>The model uses high weight norms to memorize training pairs. Test performance remains poor.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Circuit Formation</h3>
+                    <p>The model begins to discover a sparse, algorithmic circuit. Weights start to decrease due to
+                        weight decay.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Cleanup</h3>
+                    <p>The algorithmic circuit becomes dominant. Memorization is discarded, and the model groks the
+                        task.</p>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="real_weight_norms.png" alt="Weight Norms">
+                <div class="caption">Figure 2: The weight norm (green dashed line) peaks during memorization and then
+                    steadily declines as the model shifts toward a simpler, generalizing circuit.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Mechanistic Interpretability</h2>
+            <p>
+                How does the model actually solve modular addition? By applying a Fourier Transform to the embedding
+                weights, we find that the model represents numbers as points on a circle.
+            </p>
+            <p>
+                The weights are not random; they are concentrated in specific frequencies. This confirms that the model
+                has learned to implement a trigonometric identity for addition:
+                <code>cos(a+b) = cos(a)cos(b) - sin(a)sin(b)</code>.
+            </p>
+
+            <div class="image-container">
+                <img src="real_frequency_map.png" alt="Fourier Frequency Map">
+                <div class="caption">Figure 3: 2D Fourier components of the weights. The sparse, symmetric peaks
+                    indicate that the model is using a small set of discrete frequencies to perform its calculation.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Emergence of Trigonometric Neurons and Circuits</h2>
+            <p>
+                To understand how this circular representation is processed, we inspect the activations of individual neurons in the MLP hidden layer.
+                Instead of learning arbitrary look-up tables, individual neurons learn highly periodic, wave-like activations representing different spatial frequencies.
+            </p>
+            <div class="grid">
+                <div class="image-container" style="margin: 0;">
+                    <img src="act_mlp_neurons.png" alt="Activations of MLP Neurons 0 to 3">
+                    <div class="caption">Figure 4: Activations of MLP Neurons 0 to 3 as a function of inputs <i>a</i> and <i>b</i>. The shearing and diagonal wave patterns show that neurons represent trigonometric components of the modular inputs.</div>
+                </div>
+                <div class="image-container" style="margin: 0;">
+                    <img src="logit_fourier_norms.png" alt="Norm of Logits in 2D Fourier Basis">
+                    <div class="caption">Figure 5: Norm of the model's logits projected onto the 2D Fourier basis. The extreme sparsity indicates the model uses a tiny subset of key discrete frequencies (primarily frequency 24) to execute the arithmetic circuit.</div>
+                </div>
+            </div>
+            <p>
+                Are these periodic neurons just a few isolated cases, or is the entire hidden layer behaving this way? By fitting a quadratic form of sines and cosines of the inputs to each neuron's activation pattern, we can compute the fraction of variance explained ($R^2$).
+            </p>
+            <div class="image-container" style="max-width: 600px; margin: 2rem auto;">
+                <img src="neuron_variance_explained.png" alt="Fraction of Variance Explained by Neuron">
+                <div class="caption">Figure 6: Histogram showing the fraction of variance explained by a quadratic fit on sinusoidal functions for all neurons. The massive spike near 1.0 confirms that almost the entire MLP layer represents structured trigonometric circuits rather than memorized tables.</div>
+            </div>
+        </section>
+
+        <blockquote>
+            "Interpretability allows us to look past the loss curves and understand the actual algorithms emergent
+            within the neural network's parameters."
+        </blockquote>
+
+        <section>
+            <h2>Conclusion</h2>
+            <p>
+                This experiment demonstrates that generalization is not always a gradual process. In the presence of
+                weight decay, models are incentivized to find the most "compressed" explanation for the data—which, in
+                the case of modular arithmetic, is the mathematical algorithm itself.
+            </p>
+        </section>
+
+        <div class="footer">
+            <p>Generated from <code>grokking (1).ipynb</code> &bull; AI Research Summary</p>
+        </div>
+    </div>
+</body>
+
+</html>
